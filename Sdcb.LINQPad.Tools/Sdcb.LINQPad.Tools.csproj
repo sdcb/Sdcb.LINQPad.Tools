@@ -9,7 +9,7 @@
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/sdcb/Sdcb.LINQPad.Tools</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
-    <Version>0.1.0</Version>
+    <Version>0.1.0-preview</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
