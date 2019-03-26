@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net46</TargetFramework>
     <LangVersion>preview</LangVersion>
     <Company>sdcb</Company>
     <Authors>sdcb</Authors>
@@ -9,7 +9,7 @@
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/sdcb/Sdcb.LINQPad.Tools</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
-    <Version>0.1.0-preview-1</Version>
+    <Version>0.1.0-preview-5</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/sdcb/Sdcb.LINQPad.Tools</RepositoryUrl>
     <Description>Preparation tool for LINQPad.</Description>

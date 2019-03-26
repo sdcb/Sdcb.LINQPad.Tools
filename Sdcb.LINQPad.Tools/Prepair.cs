@@ -10,6 +10,10 @@ namespace Sdcb.LINQPad.Tools
 {
     public static class Prepair
     {
+        public static string BasePath => Path.Combine(Path.GetTempPath(), "LINQPad-Download");
+
+        public static event EventHandler<object> Log;
+
         /// <summary>
         /// Download from the url to Temp filename, check with sha256.
         /// </summary>
@@ -19,20 +23,21 @@ namespace Sdcb.LINQPad.Tools
         /// <returns>The local temp file full path.</returns>
         public static async Task<string> Download(string filename, string url, string sha256)
         {
+            Directory.CreateDirectory(BasePath);
+
             const string hashAlgorithm = "SHA256";
-            string localFilePath = Path.Combine(Path.GetTempPath(), filename);
+            string localFilePath = Path.Combine(BasePath, filename);
 
             if (File.Exists(localFilePath) && Hash(localFilePath, hashAlgorithm) == sha256)
             {
-                Console.WriteLine($"{hashAlgorithm} match, Return from \"{localFilePath}\"");
+                Log?.Invoke(nameof(Download), $"{hashAlgorithm} match, Return from \"{localFilePath}\"");
                 return localFilePath;
             }
 
             using (var wc = new WebClient())
             {
-                Console.WriteLine($"Downloading {url}...");
-                wc.DownloadProgressChanged += (o, e) => Console.WriteLine($"{e.BytesReceived} of {e.TotalBytesToReceive}...");
-                wc.DownloadFileCompleted += (o, e) => Console.WriteLine($"Download complete.");
+                wc.DownloadProgressChanged += (o, e) => Log?.Invoke(o, e);
+                wc.DownloadFileCompleted += (o, e) => Log?.Invoke(o, e);
                 await wc.DownloadFileTaskAsync(url, localFilePath);
             }
 
@@ -57,7 +62,7 @@ namespace Sdcb.LINQPad.Tools
             string selectedFile = Path.Combine(directoryName, selectPath);
             if (File.Exists(selectedFile) || Directory.Exists(selectedFile))
             {
-                Console.WriteLine($"\"{selectedFile}\" exists, return from cache.");
+                Log?.Invoke(nameof(Unzip), $"\"{selectedFile}\" exists, return from cache.");
                 return selectedFile;
             }
 
